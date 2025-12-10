@@ -1,0 +1,8 @@
+libsumo==1.25.0.post0
+libtraci==1.25.0.post0
+PySide6==6.10.1
+PySide6_Addons==6.10.1
+PySide6_Essentials==6.10.1
+shiboken6==6.10.1
+sumolib==1.25.0.post0
+traci==1.25.0.post0

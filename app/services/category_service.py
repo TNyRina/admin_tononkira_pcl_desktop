@@ -6,13 +6,20 @@ class CategoryService:
     def __init__(self, session):
         self.session = session
 
-    def create_category(self, name):
+    def categories(self):
+        return CategoryRepository(self.session).get_all_categories()
+
+    def create_category(self, name: str) -> Category:
         new_category = Category(name=name)
 
-        cat_repo = CategoryRepository(self.session)
+        return CategoryRepository(self.session).add_category(new_category)
+    
+    def update_category(self, id: int, name: str) -> Category:
+        repository = CategoryRepository(self.session)
+        category = repository.get_category_by_id(id)
+        category.name = name
 
-        try:
-            return cat_repo.add_category(new_category)
-        finally:
-            pass
-            self.session.close()
+        return repository.update_category(category)
+
+    def delete_category(self, id: int):
+        CategoryRepository(self.session).delete_category(id)

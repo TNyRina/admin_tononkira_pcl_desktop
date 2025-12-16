@@ -16,3 +16,161 @@ FROM categories
 WHERE categories.id = ?
  LIMIT ? OFFSET ?
 2025-12-16 05:48:23,382 | INFO | sqlalchemy.engine.Engine | [generated in 0.00127s] (1, 1, 0)
+2025-12-16 08:19:49,957 | INFO | sqlalchemy.engine.Engine | BEGIN (implicit)
+2025-12-16 08:19:49,983 | INFO | sqlalchemy.engine.Engine | INSERT INTO categories (name) VALUES (?) RETURNING id, created_at, updated_at
+2025-12-16 08:19:49,984 | INFO | sqlalchemy.engine.Engine | [generated in 0.00088s] ('Category 1',)
+2025-12-16 08:19:49,986 | INFO | sqlalchemy.engine.Engine | COMMIT
+2025-12-16 08:19:49,990 | INFO | sqlalchemy.engine.Engine | BEGIN (implicit)
+2025-12-16 08:19:49,995 | INFO | sqlalchemy.engine.Engine | SELECT categories.id, categories.name, categories.created_at, categories.updated_at 
+FROM categories 
+WHERE categories.id = ?
+2025-12-16 08:19:49,995 | INFO | sqlalchemy.engine.Engine | [generated in 0.00093s] (1,)
+2025-12-16 08:19:49,997 | INFO | app.repositories.category_repository | Category added successfully
+2025-12-16 08:19:49,998 | INFO | sqlalchemy.engine.Engine | ROLLBACK
+2025-12-16 08:19:49,999 | INFO | sqlalchemy.engine.Engine | BEGIN (implicit)
+2025-12-16 08:19:50,003 | INFO | sqlalchemy.engine.Engine | SELECT categories.id AS categories_id, categories.name AS categories_name, categories.created_at AS categories_created_at, categories.updated_at AS categories_updated_at 
+FROM categories 
+WHERE categories.id = ?
+ LIMIT ? OFFSET ?
+2025-12-16 08:19:50,003 | INFO | sqlalchemy.engine.Engine | [generated in 0.00080s] (1, 1, 0)
+2025-12-16 08:41:27,230 | INFO | sqlalchemy.engine.Engine | BEGIN (implicit)
+2025-12-16 08:41:27,236 | INFO | sqlalchemy.engine.Engine | INSERT INTO categories (name) VALUES (?) RETURNING id, created_at, updated_at
+2025-12-16 08:41:27,236 | INFO | sqlalchemy.engine.Engine | [generated in 0.00107s] ('Category 1',)
+2025-12-16 08:41:27,239 | INFO | sqlalchemy.engine.Engine | COMMIT
+2025-12-16 08:41:27,242 | INFO | sqlalchemy.engine.Engine | BEGIN (implicit)
+2025-12-16 08:41:27,251 | INFO | sqlalchemy.engine.Engine | SELECT categories.id, categories.name, categories.created_at, categories.updated_at 
+FROM categories 
+WHERE categories.id = ?
+2025-12-16 08:41:27,251 | INFO | sqlalchemy.engine.Engine | [generated in 0.00062s] (1,)
+2025-12-16 08:41:27,253 | INFO | app.repositories.category_repository | Category added successfully
+2025-12-16 08:41:27,254 | INFO | sqlalchemy.engine.Engine | ROLLBACK
+2025-12-16 08:41:27,255 | INFO | sqlalchemy.engine.Engine | BEGIN (implicit)
+2025-12-16 08:41:27,259 | INFO | sqlalchemy.engine.Engine | SELECT categories.id AS categories_id, categories.name AS categories_name, categories.created_at AS categories_created_at, categories.updated_at AS categories_updated_at 
+FROM categories 
+WHERE categories.id = ?
+ LIMIT ? OFFSET ?
+2025-12-16 08:41:27,260 | INFO | sqlalchemy.engine.Engine | [generated in 0.00089s] (1, 1, 0)
+2025-12-16 08:41:27,267 | INFO | sqlalchemy.engine.Engine | BEGIN (implicit)
+2025-12-16 08:41:27,268 | INFO | sqlalchemy.engine.Engine | INSERT INTO categories (name) VALUES (?) RETURNING id, created_at, updated_at
+2025-12-16 08:41:27,269 | INFO | sqlalchemy.engine.Engine | [cached since 0.03392s ago] ('Category 1',)
+2025-12-16 08:41:27,271 | INFO | sqlalchemy.engine.Engine | COMMIT
+2025-12-16 08:41:27,273 | INFO | sqlalchemy.engine.Engine | BEGIN (implicit)
+2025-12-16 08:41:27,274 | INFO | sqlalchemy.engine.Engine | SELECT categories.id, categories.name, categories.created_at, categories.updated_at 
+FROM categories 
+WHERE categories.id = ?
+2025-12-16 08:41:27,274 | INFO | sqlalchemy.engine.Engine | [cached since 0.02353s ago] (2,)
+2025-12-16 08:41:27,276 | INFO | app.repositories.category_repository | Category added successfully
+2025-12-16 08:41:27,276 | INFO | sqlalchemy.engine.Engine | ROLLBACK
+2025-12-16 08:41:27,277 | DEBUG | app.repositories.category_repository | Fetching category by id
+2025-12-16 08:41:27,278 | INFO | sqlalchemy.engine.Engine | BEGIN (implicit)
+2025-12-16 08:41:27,281 | INFO | sqlalchemy.engine.Engine | SELECT categories.id AS categories_id, categories.name AS categories_name, categories.created_at AS categories_created_at, categories.updated_at AS categories_updated_at 
+FROM categories 
+WHERE categories.id = ?
+2025-12-16 08:41:27,282 | INFO | sqlalchemy.engine.Engine | [generated in 0.00103s] (2,)
+2025-12-16 08:41:27,287 | INFO | sqlalchemy.engine.Engine | UPDATE categories SET name=?, updated_at=CURRENT_TIMESTAMP WHERE categories.id = ?
+2025-12-16 08:41:27,288 | INFO | sqlalchemy.engine.Engine | [generated in 0.00087s] ('updated name', 2)
+2025-12-16 08:41:27,290 | INFO | sqlalchemy.engine.Engine | COMMIT
+2025-12-16 08:41:27,292 | INFO | sqlalchemy.engine.Engine | BEGIN (implicit)
+2025-12-16 08:41:27,294 | INFO | sqlalchemy.engine.Engine | SELECT categories.id AS categories_id, categories.name AS categories_name, categories.created_at AS categories_created_at, categories.updated_at AS categories_updated_at 
+FROM categories 
+WHERE categories.id = ?
+2025-12-16 08:41:27,295 | INFO | sqlalchemy.engine.Engine | [generated in 0.00069s] (2,)
+2025-12-16 08:41:27,296 | INFO | app.repositories.category_repository | Category updated successfully
+2025-12-16 08:41:27,297 | INFO | sqlalchemy.engine.Engine | ROLLBACK
+2025-12-16 08:43:22,560 | INFO | sqlalchemy.engine.Engine | BEGIN (implicit)
+2025-12-16 08:43:22,564 | INFO | sqlalchemy.engine.Engine | INSERT INTO categories (name) VALUES (?) RETURNING id, created_at, updated_at
+2025-12-16 08:43:22,565 | INFO | sqlalchemy.engine.Engine | [generated in 0.00072s] ('Category 1',)
+2025-12-16 08:43:22,567 | INFO | sqlalchemy.engine.Engine | COMMIT
+2025-12-16 08:43:22,570 | INFO | sqlalchemy.engine.Engine | BEGIN (implicit)
+2025-12-16 08:43:22,576 | INFO | sqlalchemy.engine.Engine | SELECT categories.id, categories.name, categories.created_at, categories.updated_at 
+FROM categories 
+WHERE categories.id = ?
+2025-12-16 08:43:22,576 | INFO | sqlalchemy.engine.Engine | [generated in 0.00059s] (1,)
+2025-12-16 08:43:22,578 | INFO | app.repositories.category_repository | Category added successfully
+2025-12-16 08:43:22,578 | INFO | sqlalchemy.engine.Engine | ROLLBACK
+2025-12-16 08:43:22,580 | INFO | sqlalchemy.engine.Engine | BEGIN (implicit)
+2025-12-16 08:43:22,583 | INFO | sqlalchemy.engine.Engine | SELECT categories.id AS categories_id, categories.name AS categories_name, categories.created_at AS categories_created_at, categories.updated_at AS categories_updated_at 
+FROM categories 
+WHERE categories.id = ?
+ LIMIT ? OFFSET ?
+2025-12-16 08:43:22,584 | INFO | sqlalchemy.engine.Engine | [generated in 0.00078s] (1, 1, 0)
+2025-12-16 08:43:22,590 | INFO | sqlalchemy.engine.Engine | BEGIN (implicit)
+2025-12-16 08:43:22,591 | INFO | sqlalchemy.engine.Engine | INSERT INTO categories (name) VALUES (?) RETURNING id, created_at, updated_at
+2025-12-16 08:43:22,592 | INFO | sqlalchemy.engine.Engine | [cached since 0.0277s ago] ('Category 1',)
+2025-12-16 08:43:22,593 | INFO | sqlalchemy.engine.Engine | COMMIT
+2025-12-16 08:43:22,595 | INFO | sqlalchemy.engine.Engine | BEGIN (implicit)
+2025-12-16 08:43:22,596 | INFO | sqlalchemy.engine.Engine | SELECT categories.id, categories.name, categories.created_at, categories.updated_at 
+FROM categories 
+WHERE categories.id = ?
+2025-12-16 08:43:22,596 | INFO | sqlalchemy.engine.Engine | [cached since 0.0207s ago] (2,)
+2025-12-16 08:43:22,598 | INFO | app.repositories.category_repository | Category added successfully
+2025-12-16 08:43:22,598 | INFO | sqlalchemy.engine.Engine | ROLLBACK
+2025-12-16 08:43:22,599 | INFO | sqlalchemy.engine.Engine | BEGIN (implicit)
+2025-12-16 08:43:22,600 | INFO | sqlalchemy.engine.Engine | SELECT categories.id AS categories_id, categories.name AS categories_name, categories.created_at AS categories_created_at, categories.updated_at AS categories_updated_at 
+FROM categories 
+WHERE categories.id = ?
+ LIMIT ? OFFSET ?
+2025-12-16 08:43:22,601 | INFO | sqlalchemy.engine.Engine | [cached since 0.01798s ago] (2, 1, 0)
+2025-12-16 08:43:22,602 | DEBUG | app.repositories.category_repository | Fetching category by id
+2025-12-16 08:43:22,607 | INFO | sqlalchemy.engine.Engine | UPDATE categories SET name=?, updated_at=CURRENT_TIMESTAMP WHERE categories.id = ?
+2025-12-16 08:43:22,607 | INFO | sqlalchemy.engine.Engine | [generated in 0.00078s] ('updated name', 2)
+2025-12-16 08:43:22,609 | INFO | sqlalchemy.engine.Engine | COMMIT
+2025-12-16 08:43:22,610 | INFO | sqlalchemy.engine.Engine | BEGIN (implicit)
+2025-12-16 08:43:22,612 | INFO | sqlalchemy.engine.Engine | SELECT categories.id AS categories_id, categories.name AS categories_name, categories.created_at AS categories_created_at, categories.updated_at AS categories_updated_at 
+FROM categories 
+WHERE categories.id = ?
+2025-12-16 08:43:22,613 | INFO | sqlalchemy.engine.Engine | [generated in 0.00080s] (2,)
+2025-12-16 08:43:22,614 | INFO | app.repositories.category_repository | Category updated successfully
+2025-12-16 08:43:22,615 | INFO | sqlalchemy.engine.Engine | ROLLBACK
+2025-12-16 08:49:01,045 | INFO | sqlalchemy.engine.Engine | BEGIN (implicit)
+2025-12-16 08:49:01,049 | INFO | sqlalchemy.engine.Engine | INSERT INTO categories (name) VALUES (?) RETURNING id, created_at, updated_at
+2025-12-16 08:49:01,049 | INFO | sqlalchemy.engine.Engine | [generated in 0.00075s] ('Category 1',)
+2025-12-16 08:49:01,051 | INFO | sqlalchemy.engine.Engine | COMMIT
+2025-12-16 08:49:01,054 | INFO | sqlalchemy.engine.Engine | BEGIN (implicit)
+2025-12-16 08:49:01,060 | INFO | sqlalchemy.engine.Engine | SELECT categories.id, categories.name, categories.created_at, categories.updated_at 
+FROM categories 
+WHERE categories.id = ?
+2025-12-16 08:49:01,061 | INFO | sqlalchemy.engine.Engine | [generated in 0.00076s] (1,)
+2025-12-16 08:49:01,062 | INFO | app.repositories.category_repository | Category added successfully
+2025-12-16 08:49:01,063 | INFO | sqlalchemy.engine.Engine | ROLLBACK
+2025-12-16 08:49:01,064 | INFO | sqlalchemy.engine.Engine | BEGIN (implicit)
+2025-12-16 08:49:01,067 | INFO | sqlalchemy.engine.Engine | SELECT categories.id AS categories_id, categories.name AS categories_name, categories.created_at AS categories_created_at, categories.updated_at AS categories_updated_at 
+FROM categories 
+WHERE categories.id = ?
+ LIMIT ? OFFSET ?
+2025-12-16 08:49:01,068 | INFO | sqlalchemy.engine.Engine | [generated in 0.00092s] (1, 1, 0)
+2025-12-16 08:49:01,071 | INFO | sqlalchemy.engine.Engine | ROLLBACK
+2025-12-16 08:49:01,076 | INFO | sqlalchemy.engine.Engine | BEGIN (implicit)
+2025-12-16 08:49:01,077 | INFO | sqlalchemy.engine.Engine | INSERT INTO categories (name) VALUES (?) RETURNING id, created_at, updated_at
+2025-12-16 08:49:01,078 | INFO | sqlalchemy.engine.Engine | [cached since 0.02925s ago] ('Category 1',)
+2025-12-16 08:49:01,079 | INFO | sqlalchemy.engine.Engine | COMMIT
+2025-12-16 08:49:01,081 | INFO | sqlalchemy.engine.Engine | BEGIN (implicit)
+2025-12-16 08:49:01,082 | INFO | sqlalchemy.engine.Engine | SELECT categories.id, categories.name, categories.created_at, categories.updated_at 
+FROM categories 
+WHERE categories.id = ?
+2025-12-16 08:49:01,082 | INFO | sqlalchemy.engine.Engine | [cached since 0.02231s ago] (2,)
+2025-12-16 08:49:01,083 | INFO | app.repositories.category_repository | Category added successfully
+2025-12-16 08:49:01,084 | INFO | sqlalchemy.engine.Engine | ROLLBACK
+2025-12-16 08:49:01,085 | DEBUG | app.repositories.category_repository | Fetching category by id
+2025-12-16 08:49:01,086 | INFO | sqlalchemy.engine.Engine | BEGIN (implicit)
+2025-12-16 08:49:01,089 | INFO | sqlalchemy.engine.Engine | SELECT categories.id AS categories_id, categories.name AS categories_name, categories.created_at AS categories_created_at, categories.updated_at AS categories_updated_at 
+FROM categories 
+WHERE categories.id = ?
+2025-12-16 08:49:01,090 | INFO | sqlalchemy.engine.Engine | [generated in 0.00089s] (2,)
+2025-12-16 08:49:01,094 | INFO | sqlalchemy.engine.Engine | UPDATE categories SET name=?, updated_at=CURRENT_TIMESTAMP WHERE categories.id = ?
+2025-12-16 08:49:01,094 | INFO | sqlalchemy.engine.Engine | [generated in 0.00082s] ('updated name', 2)
+2025-12-16 08:49:01,096 | INFO | sqlalchemy.engine.Engine | COMMIT
+2025-12-16 08:49:01,097 | INFO | sqlalchemy.engine.Engine | BEGIN (implicit)
+2025-12-16 08:49:01,099 | INFO | sqlalchemy.engine.Engine | SELECT categories.id AS categories_id, categories.name AS categories_name, categories.created_at AS categories_created_at, categories.updated_at AS categories_updated_at 
+FROM categories 
+WHERE categories.id = ?
+2025-12-16 08:49:01,100 | INFO | sqlalchemy.engine.Engine | [generated in 0.00094s] (2,)
+2025-12-16 08:49:01,101 | INFO | app.repositories.category_repository | Category updated successfully
+2025-12-16 08:49:01,102 | INFO | sqlalchemy.engine.Engine | ROLLBACK
+2025-12-16 08:49:01,103 | INFO | sqlalchemy.engine.Engine | BEGIN (implicit)
+2025-12-16 08:49:01,104 | INFO | sqlalchemy.engine.Engine | SELECT categories.id AS categories_id, categories.name AS categories_name, categories.created_at AS categories_created_at, categories.updated_at AS categories_updated_at 
+FROM categories 
+WHERE categories.id = ?
+ LIMIT ? OFFSET ?
+2025-12-16 08:49:01,105 | INFO | sqlalchemy.engine.Engine | [cached since 0.03787s ago] (2, 1, 0)
+2025-12-16 08:49:01,108 | INFO | sqlalchemy.engine.Engine | ROLLBACK

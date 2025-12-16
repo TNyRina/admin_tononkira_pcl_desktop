@@ -1,6 +1,6 @@
 from app.models.category import Category
 from app.models.song import Song
-from app.repositories.song_repository import SongRepository
+from app.repositories.category_repository import CategoryRepository
 
 class CategoryService:
     def __init__(self, session):
@@ -9,6 +9,10 @@ class CategoryService:
     def create_category(self, name):
         new_category = Category(name=name)
 
-        cat_repo = SongRepository(self.session)
+        cat_repo = CategoryRepository(self.session)
 
-        return cat_repo.add_song(new_category)
+        try:
+            return cat_repo.add_category(new_category)
+        finally:
+            pass
+            self.session.close()

@@ -1,0 +1,18 @@
+2025-12-16 05:46:30,794 | INFO | app.repositories.song_repository | Song added successfully
+2025-12-16 05:48:23,351 | INFO | sqlalchemy.engine.Engine | BEGIN (implicit)
+2025-12-16 05:48:23,358 | INFO | sqlalchemy.engine.Engine | INSERT INTO categories (name) VALUES (?) RETURNING id, created_at, updated_at
+2025-12-16 05:48:23,358 | INFO | sqlalchemy.engine.Engine | [generated in 0.00095s] ('Category 1',)
+2025-12-16 05:48:23,361 | INFO | sqlalchemy.engine.Engine | COMMIT
+2025-12-16 05:48:23,365 | INFO | sqlalchemy.engine.Engine | BEGIN (implicit)
+2025-12-16 05:48:23,371 | INFO | sqlalchemy.engine.Engine | SELECT categories.id, categories.name, categories.created_at, categories.updated_at 
+FROM categories 
+WHERE categories.id = ?
+2025-12-16 05:48:23,371 | INFO | sqlalchemy.engine.Engine | [generated in 0.00101s] (1,)
+2025-12-16 05:48:23,373 | INFO | app.repositories.category_repository | Category added successfully
+2025-12-16 05:48:23,374 | INFO | sqlalchemy.engine.Engine | ROLLBACK
+2025-12-16 05:48:23,376 | INFO | sqlalchemy.engine.Engine | BEGIN (implicit)
+2025-12-16 05:48:23,381 | INFO | sqlalchemy.engine.Engine | SELECT categories.id AS categories_id, categories.name AS categories_name, categories.created_at AS categories_created_at, categories.updated_at AS categories_updated_at 
+FROM categories 
+WHERE categories.id = ?
+ LIMIT ? OFFSET ?
+2025-12-16 05:48:23,382 | INFO | sqlalchemy.engine.Engine | [generated in 0.00127s] (1, 1, 0)

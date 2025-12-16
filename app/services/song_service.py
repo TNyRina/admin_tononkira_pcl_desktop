@@ -25,4 +25,8 @@ class SongService:
                 
         song_repository = SongRepository(self.session)
 
-        return song_repository.add_song(new_song)
+        try:
+            return song_repository.add_song(new_song)
+        finally:
+            pass
+            self.session.close()

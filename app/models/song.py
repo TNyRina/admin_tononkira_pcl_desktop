@@ -1,6 +1,7 @@
 from sqlalchemy import Column, Integer, String, DateTime, func
 from sqlalchemy.orm import relationship
 from app.db import Base
+from app.repositories.category_repository import CategoryRepository
 from .category import song_category
 
 class Song(Base):

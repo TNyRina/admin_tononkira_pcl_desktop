@@ -23,5 +23,6 @@ class Category(Base):
     songs = relationship(
         "Song",
         secondary=song_category,
-        back_populates="categories"
+        back_populates="categories",
+        passive_deletes=True
     )

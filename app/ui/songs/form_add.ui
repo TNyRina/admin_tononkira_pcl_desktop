@@ -121,9 +121,9 @@
         </layout>
        </item>
        <item>
-        <layout class="QVBoxLayout" name="verse_content">
+        <layout class="QVBoxLayout" name="content_verse">
          <item>
-          <widget class="QWidget" name="verses_content" native="true">
+          <widget class="QWidget" name="content_verses" native="true">
            <layout class="QVBoxLayout" name="verticalLayout_4">
             <item>
              <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -147,14 +147,14 @@
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_5">
              <item>
-              <widget class="QPushButton" name="pop_verse_btn">
+              <widget class="QPushButton" name="btn_pop_verse">
                <property name="text">
                 <string>-</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="push_verse_btn">
+              <widget class="QPushButton" name="btn_push_verse">
                <property name="text">
                 <string>+</string>
                </property>

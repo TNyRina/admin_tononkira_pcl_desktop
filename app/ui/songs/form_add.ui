@@ -46,7 +46,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="lineEdit"/>
+          <widget class="QLineEdit" name="input_title"/>
          </item>
         </layout>
        </item>
@@ -60,7 +60,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="lineEdit_2"/>
+          <widget class="QLineEdit" name="input_author"/>
          </item>
         </layout>
        </item>
@@ -74,7 +74,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="lineEdit_3"/>
+          <widget class="QLineEdit" name="input_composer"/>
          </item>
         </layout>
        </item>

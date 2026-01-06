@@ -15,20 +15,31 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout" stretch="4,1">
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
       <widget class="QLabel" name="label">
        <property name="text">
-        <string>Liste des lyris</string>
+        <string>Liste des lyrics</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="add_form_btn">
-       <property name="text">
-        <string>Ajouter</string>
-       </property>
-      </widget>
+      <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0">
+       <item>
+        <widget class="QPushButton" name="btn_to_category">
+         <property name="text">
+          <string>Liste categories</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btn_to_add_form">
+         <property name="text">
+          <string>Ajouter</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
     </layout>
    </item>

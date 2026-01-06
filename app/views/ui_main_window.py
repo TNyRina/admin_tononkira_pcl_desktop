@@ -5,13 +5,13 @@ from app.views.ui_sidebar import SidebarUI
 from app.views.ui_main_content import MainContentUI
 
 class MainWindow(QMainWindow):
-    def __init__(self, title: str):
+    def __init__(self, title: str, session):
         super().__init__()
         self.setWindowTitle(title)
         self.showMaximized() 
         
         self.sidebar = SidebarUI()
-        self.content_main = MainContentUI()
+        self.content_main = MainContentUI(session)
 
         Navigation(self.sidebar, self.content_main).setup()
         

@@ -19,6 +19,17 @@ class Navigation:
 
     def _song_navigation_setup(self):
         self.content_main.addWidget(self.content_main.song_ui.form_add_ui.get_ui())
-        self.content_main.song_ui.add_form_btn.clicked.connect(
+        self.content_main.addWidget(self.content_main.category_ui.get_ui())
+
+
+        self.content_main.song_ui.btn_to_add_form.clicked.connect(
             lambda: self.content_main.setCurrentWidget(self.content_main.song_ui.form_add_ui.get_ui())
+        )
+        
+        self.content_main.song_ui.btn_to_category.clicked.connect(
+            lambda: self.content_main.setCurrentWidget(self.content_main.category_ui.get_ui())
+        )
+
+        self.content_main.category_ui.btn_to_song.clicked.connect(
+            lambda: self.content_main.setCurrentWidget(self.content_main.song_ui.get_ui())
         )

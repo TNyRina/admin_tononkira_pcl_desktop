@@ -11,7 +11,8 @@ class SongUI(QWidget):
 
         self.form_add_ui = FormAddSongUI()
 
-        self.add_form_btn = self.ui.findChild(QPushButton, "add_form_btn")
+        self.btn_to_add_form = self.ui.findChild(QPushButton, "btn_to_add_form")
+        self.btn_to_category = self.ui.findChild(QPushButton, "btn_to_category")
 
     def get_ui(self):
         return self.ui

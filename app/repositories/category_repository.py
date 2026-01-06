@@ -1,5 +1,6 @@
 import logging
 from sqlalchemy.exc import SQLAlchemyError, IntegrityError
+from app.exceptions.technical import DatabaseError
 from app.models.category import Category
 
 
@@ -26,22 +27,38 @@ class CategoryRepository:
             self.session.commit()
             self.session.refresh(category)
 
-            CategoryRepository.logger.info(
+            self.logger.info(
                 "Category added successfully",
                 extra={"category_id": category.id}
             )
-
             return category
 
-        except IntegrityError:
+        except IntegrityError as e:
             self.session.rollback()
-            CategoryRepository.logger.exception("Integrity error while adding category")
-            raise
+            self.logger.exception("IntegrityError while adding category")
+            raise DatabaseError("DB_INTEGRITY_ERROR") from e
 
-        except SQLAlchemyError:
+        except SQLAlchemyError as e:
             self.session.rollback()
-            CategoryRepository.logger.exception("Database error while adding category")
-            raise
+            self.logger.exception("SQLAlchemyError while adding category")
+            raise DatabaseError("DB_ERROR") from e
+    
+    def is_category_exists(self, name: str) -> bool:
+        try:
+            exists = self.session.query(
+                self.session.query(Category).filter_by(name=name).exists()
+            ).scalar()
+
+            CategoryRepository.logger.info(
+                "Checked category existence",
+                extra={"category_name": name, "exists": exists}
+            )
+
+            return exists
+        except SQLAlchemyError as e:
+            CategoryRepository.logger.exception("Database error while checking category existence")
+            raise DatabaseError("DB_ERROR") from e
+     
 
     def update_category(self, updated_category: Category) -> Category:  
         try:

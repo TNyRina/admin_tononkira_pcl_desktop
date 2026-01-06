@@ -38,21 +38,21 @@
    <item>
     <widget class="QPushButton" name="dashboard_btn">
      <property name="text">
-      <string>PushButton</string>
+      <string>Tableau de bord</string>
      </property>
     </widget>
    </item>
    <item>
     <widget class="QPushButton" name="lyric_btn">
      <property name="text">
-      <string>PushButton</string>
+      <string>Lyric</string>
      </property>
     </widget>
    </item>
    <item>
     <widget class="QPushButton" name="pushButton_2">
      <property name="text">
-      <string>PushButton</string>
+      <string>Membre</string>
      </property>
     </widget>
    </item>

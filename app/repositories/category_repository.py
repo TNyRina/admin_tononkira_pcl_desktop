@@ -1,6 +1,6 @@
 import logging
 from sqlalchemy.exc import SQLAlchemyError, IntegrityError
-from app.exceptions.technical import DatabaseError
+from app.exceptions.technical_exception import DatabaseError
 from app.models.category import Category
 
 

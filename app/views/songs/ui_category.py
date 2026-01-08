@@ -1,6 +1,7 @@
 from PySide6.QtWidgets import QWidget, QPushButton, QLineEdit, QMessageBox
-from app.exceptions.base import AppError
-from app.exceptions.business import ValidationError
+from app.exceptions.base_exception import AppError
+from app.exceptions.business_exception import ValidationError
+from app.views.user_dialog.dialog_error import ErrorDialog
 from app.views.utility.utils import load_ui
 from app.controllers.category_controller import CategoryController
 
@@ -34,17 +35,11 @@ class CategoryUI(QWidget):
             )
             category_name.setText("")
         except ValidationError as e:
-            QMessageBox.warning(
-                self,
-                "Erreur",
-                e.message
-            )
-        except AppError:
-            QMessageBox.critical(
-                self,
-                "Erreur",
-                "Une erreur est survenue"
-            )
+            error_dialog = ErrorDialog(self, type='warning', exception=e)
+            error_dialog.show()
+        except AppError as e :
+            error_dialog = ErrorDialog(self, type='critical', exception=e)
+            error_dialog.show()
         
         
             

@@ -1,4 +1,4 @@
-from app.exceptions.business import ValidationError
+from app.exceptions.business_exception import ValidationError
 from app.services.category_service import CategoryService
 
 class CategoryController:

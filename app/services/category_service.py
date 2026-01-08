@@ -1,5 +1,5 @@
-from app.exceptions.business import ValidationError
-from app.exceptions.technical import DatabaseError
+from app.exceptions.business_exception import ValidationError
+from app.exceptions.technical_exception import DatabaseError
 from app.models.category import Category
 from app.repositories.category_repository import CategoryRepository
 class CategoryService:
@@ -26,7 +26,7 @@ class CategoryService:
             )
 
         except DatabaseError as e:
-            raise ValidationError("Failed to create category", code="CATEGORY_CREATE_FAILED") from e
+            raise ValidationError("Failed to create category", code="CREATE_FAILED") from e
     
     def update_category(self, id: int, name: str) -> Category:
         repository = CategoryRepository(self.session)

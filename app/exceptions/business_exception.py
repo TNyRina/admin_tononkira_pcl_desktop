@@ -1,4 +1,4 @@
-from app.exceptions.base import AppError
+from app.exceptions.base_exception import AppError
 
 
 class ValidationError(AppError):

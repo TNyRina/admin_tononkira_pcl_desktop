@@ -10,6 +10,35 @@ class CategoryService:
         return CategoryRepository(self.session).get_all_categories()
 
     def create_category(self, name: str) -> Category:
+        self.valide_name(name)
+
+        try:
+            return CategoryRepository(self.session).add_category(
+                Category(name=name)
+            )
+
+        except DatabaseError as e:
+            raise ValidationError("Failed to create category", code="CREATE_FAILED") from e
+
+    def update_category(self, id: int, name: str) -> Category:
+        self.valide_name(name)
+        try:
+            repository = CategoryRepository(self.session)
+            category = repository.get_category_by_id(id)
+            category.name = name
+
+            return repository.update_category(category)
+        except DatabaseError as e:
+            raise ValidationError("Failed to update category", code="UPDATE_FAILED") from e
+
+    def delete_category(self, id: int):
+        try:
+            CategoryRepository(self.session).delete_category(id)
+        except DatabaseError as e:
+            raise ValidationError("Failed to delete category", code="DELETE_FAILED") from e
+
+
+    def valide_name(self, name):
         if not name or name.strip() == "":
             raise ValidationError(message=f"Field {name} is required.", code="FIELD_REQUIRED", field="name")
 
@@ -19,35 +48,3 @@ class CategoryService:
                 code="DUPLICATE_FIELD",
                 field="name"
             )
-
-        try:
-            return CategoryRepository(self.session).add_category(
-                Category(name=name)
-            )
-
-        except DatabaseError as e:
-            raise ValidationError("Failed to create category", code="CREATE_FAILED") from e
-    
-    def update_category(self, id: int, name: str) -> Category:
-        repository = CategoryRepository(self.session)
-        category = repository.get_category_by_id(id)
-        category.name = name
-
-        return repository.update_category(category)
-
-    def delete_category(self, id: int):
-        CategoryRepository(self.session).delete_category(id)
-
-    
-    def _analyze_integrity_error(self, e):
-        msg = str(e.orig).lower()
-
-        if "unique constraint" in msg:
-            return "duplicate"
-
-        if "not null constraint" in msg:
-            return "null_violation"
-
-        return "unknown"
-
-

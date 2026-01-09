@@ -93,15 +93,6 @@ class CategoryRepository:
                 "Category deleted successfully",
                 extra={"category_id": category_id}
             )
-
-        except ValueError:
-            self.session.rollback()
-            CategoryRepository.logger.exception("Value error while deleting category")
-            raise
-        except IntegrityError:
-            self.session.rollback()
-            CategoryRepository.logger.exception("Integrity error while deleting category")
-            raise
         except SQLAlchemyError:
             self.session.rollback()
             CategoryRepository.logger.exception("Database error while deleting category")

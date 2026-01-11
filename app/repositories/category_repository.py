@@ -16,10 +16,10 @@ class CategoryRepository:
             CategoryRepository.logger.info(f"Fetched {len(categories)} categories")
 
             return categories
-        except SQLAlchemyError:
+        except SQLAlchemyError as e:
             self.session.rollback()
             CategoryRepository.logger.exception("Database error while fetching categories")
-            raise       
+            raise DatabaseError("DB_ERROR") from e       
 
     def add_category(self, category: Category) -> Category:
         try:
@@ -71,14 +71,14 @@ class CategoryRepository:
             )
 
             return category
-        except IntegrityError:
+        except IntegrityError as e:
             self.session.rollback()
             CategoryRepository.logger.exception("Integrity error while updating category")
-            raise
+            raise DatabaseError("DB_INTEGRITY_ERROR") from e
         except SQLAlchemyError:
             self.session.rollback()
             CategoryRepository.logger.exception("Database error while updating category")
-            raise
+            raise DatabaseError("DB_ERROR") from e
 
     def delete_category(self, category_id: int):
         try:
@@ -93,10 +93,10 @@ class CategoryRepository:
                 "Category deleted successfully",
                 extra={"category_id": category_id}
             )
-        except SQLAlchemyError:
+        except SQLAlchemyError as e:
             self.session.rollback()
             CategoryRepository.logger.exception("Database error while deleting category")
-            raise
+            raise DatabaseError("DB_ERROR") from e
     
 
     def get_category_by_id(self, cat_id):

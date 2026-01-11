@@ -6,10 +6,10 @@ from app.views.utility.utils import load_ui
 UI_PATH = "app/ui/songs/song.ui"
 
 class SongUI(QWidget):
-    def __init__(self):
+    def __init__(self, session):
         self.ui = load_ui(UI_PATH)
 
-        self.form_add_ui = FormAddSongUI()
+        self.form_add_ui = FormAddSongUI(session)
 
         self.btn_to_add_form = self.ui.findChild(QPushButton, "btn_to_add_form")
         self.btn_to_category = self.ui.findChild(QPushButton, "btn_to_category")

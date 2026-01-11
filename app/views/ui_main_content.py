@@ -12,7 +12,7 @@ class MainContentUI(QStackedWidget):
         self.ui = load_ui(UI_PATH)
 
         self.dashboard_ui = load_ui("app/ui/dashboard.ui")
-        self.song_ui = SongUI()
+        self.song_ui = SongUI(session)
         self.category_ui = CategoryUI(session)
 
         self.addWidget(self.dashboard_ui)

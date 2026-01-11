@@ -1,10 +1,12 @@
-from PySide6.QtWidgets import QWidget, QPushButton, QVBoxLayout, QLabel, QTextEdit
+from PySide6.QtWidgets import QWidget, QPushButton, QHBoxLayout, QVBoxLayout, QLabel, QTextEdit, QCheckBox
+from app.controllers.category_controller import CategoryController
+from app.views.shared.flow_layout import FlowLayout
 from app.views.utility.utils import load_ui
 
 UI_PATH = "app/ui/songs/form_add.ui"
 
 class FormAddSongUI(QWidget):
-    def __init__(self):
+    def __init__(self, session):
         super().__init__()
         self.ui = load_ui(UI_PATH)
 
@@ -14,7 +16,27 @@ class FormAddSongUI(QWidget):
         
         self.btn_push_verse.clicked.connect(lambda: self._push_verse())
         self.btn_pop_verse.clicked.connect(lambda: self._pop_verse())
+
+        """
+        Categories options
+        """
+        self.categories_content = self.ui.findChild(QWidget, 'categories_content')
+        self.setup_categories_checkboxes(session)
         
+    def setup_categories_checkboxes(self, session):
+        flow_layout = FlowLayout(self.categories_content)
+        self.categories_content.setLayout(flow_layout)
+        
+        category_controller = CategoryController(session)
+        categories = category_controller.get_categories()
+
+        for cat in categories:
+            self.add_checkbox(flow_layout, cat)
+
+    def add_checkbox(self, container, checkbox_value):
+        checkbox = QCheckBox(checkbox_value.name)
+        checkbox.setProperty("value", checkbox_value.id)
+        container.addWidget(checkbox)  
 
     def get_ui(self):
         return self.ui

@@ -1,14 +1,21 @@
 import logging
 from sqlalchemy.exc import SQLAlchemyError, IntegrityError
 
+from app.exceptions.technical_exception import DatabaseError
 from app.models.song import Song
 
 class SongRepository:
     
     logger = logging.getLogger(__name__)
 
+
+
+
     def __init__(self, session):
         self.session = session
+
+
+
 
     def get_all_songs(self):
         try:
@@ -16,11 +23,14 @@ class SongRepository:
             SongRepository.logger.info(f"Fetched {len(songs)} songs")
             
             return songs
-        except SQLAlchemyError:
+        except SQLAlchemyError as e:
             self.session.rollback()
             SongRepository.logger.exception("Database error while fetching songs")
-            raise   
+            raise DatabaseError("DB_ERROR") from e   
         
+
+
+
     def add_song(self, song: Song) -> Song:
         try:
             self.session.add(song)
@@ -33,15 +43,18 @@ class SongRepository:
             )
 
             return song
-        except IntegrityError:
+        except IntegrityError as e:
             self.session.rollback()
             SongRepository.logger.exception("Error while adding song")
-            raise 
-        except SQLAlchemyError:
+            raise DatabaseError("DB_INTEGRITY_ERROR") from e
+        except SQLAlchemyError as e:
             self.session.rollback()
-            SongRepository.logger.exception("Database error while adding category")
-            raise
-    
+            SongRepository.logger.exception("Database error while adding song")
+            raise DatabaseError("DB_ERROR") from e
+
+
+
+
     def update_song(self, updated_song: Song) -> Song:
         try:
             song = self.session.merge(updated_song)
@@ -50,15 +63,20 @@ class SongRepository:
             SongRepository.logger.info("Song updated successfully", extra={"song_id": song.id})
 
             return song
-        except IntegrityError:
+        except IntegrityError as e:
             self.session.rollback()
             SongRepository.logger.exception("Integrity error while updating song")
-            raise
-        except SQLAlchemyError:
+            raise DatabaseError("DB_INTEGRITY_ERROR") from e
+        except SQLAlchemyError as e:
             self.session.rollback()
             SongRepository.logger.exception("Database error while updating song")
-            raise
+            raise DatabaseError("DB_ERROR") from e
     
+
+
+
+
+
     def delete_song(self, song_id: int):
         try:
             song = self.session.get(Song, song_id)
@@ -72,19 +90,15 @@ class SongRepository:
                 "Song deleted successfully",
                 extra={"song_id": song_id}
             )
-
-        except ValueError:
-            self.session.rollback()
-            SongRepository.logger.exception("Value error while deleting song")
-            raise
-        except IntegrityError:
-            self.session.rollback()
-            SongRepository.logger.exception("Integrity error while deleting song")
-            raise
-        except SQLAlchemyError:
+        except SQLAlchemyError as e:
             self.session.rollback()
             SongRepository.logger.exception("Database error while deleting song")
-            raise
+            raise DatabaseError("DB_ERROR") from e
+
+
+
+
+
 
     def get_song_by_id(self, song_id):
         SongRepository.logger.debug("Fetching song by id", extra={"song-id": song_id})

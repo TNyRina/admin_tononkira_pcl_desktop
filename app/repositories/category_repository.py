@@ -7,8 +7,13 @@ from app.models.category import Category
 class CategoryRepository:
     logger = logging.getLogger(__name__)
 
+
+
     def __init__(self, session):
         self.session = session    
+
+
+
 
     def get_all_categories(self):
         try:
@@ -21,6 +26,9 @@ class CategoryRepository:
             CategoryRepository.logger.exception("Database error while fetching categories")
             raise DatabaseError("DB_ERROR") from e       
 
+
+
+
     def add_category(self, category: Category) -> Category:
         try:
             self.session.add(category)
@@ -32,7 +40,6 @@ class CategoryRepository:
                 extra={"category_id": category.id}
             )
             return category
-
         except IntegrityError as e:
             self.session.rollback()
             self.logger.exception("IntegrityError while adding category")
@@ -43,6 +50,11 @@ class CategoryRepository:
             self.logger.exception("SQLAlchemyError while adding category")
             raise DatabaseError("DB_ERROR") from e
     
+
+
+
+
+
     def is_category_exists(self, name: str) -> bool:
         try:
             exists = self.session.query(
@@ -59,6 +71,10 @@ class CategoryRepository:
             CategoryRepository.logger.exception("Database error while checking category existence")
             raise DatabaseError("DB_ERROR") from e
      
+
+
+
+
 
     def update_category(self, updated_category: Category) -> Category:  
         try:
@@ -80,6 +96,10 @@ class CategoryRepository:
             CategoryRepository.logger.exception("Database error while updating category")
             raise DatabaseError("DB_ERROR") from e
 
+
+
+
+
     def delete_category(self, category_id: int):
         try:
             category = self.session.get(Category, category_id)
@@ -97,6 +117,10 @@ class CategoryRepository:
             self.session.rollback()
             CategoryRepository.logger.exception("Database error while deleting category")
             raise DatabaseError("DB_ERROR") from e
+    
+
+
+
     
 
     def get_category_by_id(self, cat_id):

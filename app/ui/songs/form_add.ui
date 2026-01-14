@@ -102,7 +102,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QTextEdit" name="textEdit"/>
+          <widget class="QTextEdit" name="text_description"/>
          </item>
         </layout>
        </item>
@@ -116,7 +116,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QTextEdit" name="textEdit_2"/>
+          <widget class="QTextEdit" name="text_refrain"/>
          </item>
         </layout>
        </item>
@@ -124,22 +124,7 @@
         <layout class="QVBoxLayout" name="content_verse">
          <item>
           <widget class="QWidget" name="content_verses" native="true">
-           <layout class="QVBoxLayout" name="verticalLayout_4">
-            <item>
-             <layout class="QVBoxLayout" name="verticalLayout_3">
-              <item>
-               <widget class="QLabel" name="label_7">
-                <property name="text">
-                 <string>Verse</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QTextEdit" name="textEdit_3"/>
-              </item>
-             </layout>
-            </item>
-           </layout>
+           <layout class="QVBoxLayout" name="verticalLayout_4"/>
           </widget>
          </item>
          <item>
@@ -189,7 +174,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton">
+          <widget class="QPushButton" name="btn_save">
            <property name="text">
             <string>Enregistrer</string>
            </property>

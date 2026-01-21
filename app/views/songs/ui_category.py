@@ -1,8 +1,10 @@
-from PySide6.QtWidgets import QWidget, QPushButton, QLineEdit, QMessageBox, QTableView, QAbstractItemView
+from PySide6.QtWidgets import QWidget, QPushButton, QLineEdit, QMessageBox, QTableView
+from PySide6.QtCore import Qt
 
 from app.exceptions.base_exception import AppError
 from app.exceptions.business_exception import ValidationError
-from app.views.songs.model_category_table import CategoryTableModel
+from app.views.shared.confirm_delete import ConfirmDelete
+from app.views.songs.model_table.category_table import CategoryTableModel
 from app.views.user_dialog.dialog_error import ErrorDialog
 from app.controllers.category_controller import CategoryController
 
@@ -55,7 +57,9 @@ class CategoryUI(QWidget):
     
 
     def update_category(self):
-        category = self.model.get_selected_category(self.table_categories.currentIndex())
+        index = self.table_categories.currentIndex()
+        category = self.model.data(index, Qt.UserRole)
+
         if category :
             self.btn_add_category.setText("Sauvegarder")
             self.input_category_name.setText(category.name)
@@ -64,35 +68,24 @@ class CategoryUI(QWidget):
     def delete_category(self):
         indexes = self.table_categories.selectionModel().selectedRows()
 
-        if self.confirm_delete(indexes):
+        confirm = ConfirmDelete(indexes)
+
+        if confirm.execute():
             for index in indexes:
-                category = self.model.get_selected_category(index)
+                category = self.model.data(index, Qt.UserRole)
                 if category :
                     try:
                         self.controller.delete_category(category.id)
+                        QMessageBox.information(
+                            self,
+                            "Succès",
+                            f"Suppression de {len(indexes)} éléments avec succès."
+                        )
                     except AppError as e :
                         error_dialog = ErrorDialog(self, type='critical', exception=e)
                         error_dialog.show()
-            QMessageBox.information(
-                    self,
-                    "Succès",
-                    f"Suppression de {len(indexes)} éléments avec succès."
-                )
+            
             self.reset_defautl_ui()
-    
-    def confirm_delete(self, indexes):
-        msg_box = QMessageBox()
-        msg_box.setIcon(QMessageBox.Warning)  
-        msg_box.setWindowTitle("Confirmation")
-        msg_box.setText(f"Attention! vous allez supprimer {len(indexes)} éléments")
-        msg_box.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
-        msg_box.setDefaultButton(QMessageBox.No)  
-        result = msg_box.exec()
-
-        if result == QMessageBox.Yes:
-            return True
-        else:
-            return False
             
 
     def add_category(self):

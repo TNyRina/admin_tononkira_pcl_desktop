@@ -2,6 +2,7 @@ from PySide6.QtWidgets import QWidget, QPushButton, QHBoxLayout, QVBoxLayout, QL
 from app.controllers.category_controller import CategoryController
 from app.controllers.song_controller import SongController
 from app.views.shared.flow_layout import FlowLayout
+from app.views.user_dialog.dialog_error import ErrorDialog
 from app.views.utility.utils import load_ui
 
 UI_PATH = "app/ui/songs/form_add.ui"
@@ -71,12 +72,14 @@ class FormAddSongUI(QWidget):
                 verse=verses,
                 categories=selected_categories
             )
-        except Exception as e:
             QMessageBox.information(
                     self,
                     "Succès",
                     f"Lyric '{title}' a été ajoutée avec succès."
                 )
+        except Exception as e:
+            error_dialog = ErrorDialog(self, type='warning', exception=e)
+            error_dialog.show()
 
     def get_verses(self):
         layout_verses = self.content_verse.layout()

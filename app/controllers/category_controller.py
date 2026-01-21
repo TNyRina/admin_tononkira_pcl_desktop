@@ -26,5 +26,5 @@ class CategoryController:
     def get_categories(self):
         try:
             return self.service.categories()
-        except ValidationError:
+        except Exception:
             raise

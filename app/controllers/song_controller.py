@@ -20,3 +20,15 @@ class SongController:
             categories=categories)
         except ValidationError :
             raise 
+    
+    def get_songs(self):
+        try: 
+            return self.service.songs()
+        except Exception: 
+            raise
+
+    def delete_song(self, id): 
+        try: 
+            self.service.delete_song(id)
+        except Exception:
+            raise

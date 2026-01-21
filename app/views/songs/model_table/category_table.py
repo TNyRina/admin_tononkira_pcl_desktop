@@ -1,4 +1,4 @@
-from PySide6.QtCore import Qt, QAbstractTableModel, QModelIndex
+from PySide6.QtCore import Qt, QAbstractTableModel
 
 class CategoryTableModel(QAbstractTableModel) :
     def __init__(self, categories=None):
@@ -25,14 +25,6 @@ class CategoryTableModel(QAbstractTableModel) :
 
         if role == Qt.UserRole:
             return category
-        
-    
-    def get_selected_category(self, index):
-        if not index.isValid():
-            return None
-        
-
-        return self.data(index, Qt.UserRole)
     
     def headerData(self, section, orientation, role=Qt.DisplayRole):
         headers = ["Categorie"]

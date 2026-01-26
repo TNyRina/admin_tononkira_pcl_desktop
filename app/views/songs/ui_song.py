@@ -1,56 +1,107 @@
-from PySide6.QtWidgets import QPushButton, QWidget, QTableView, QAbstractItemView, QMessageBox
+from PySide6.QtWidgets import QPushButton, QWidget,QMessageBox
 from PySide6.QtCore import Qt
 from app.controllers.song_controller import SongController
 from app.exceptions.base_exception import AppError
 from app.views.shared.confirm_delete import ConfirmDelete
-from app.views.songs.model_table.song_table import SongTableModel
-from app.views.songs.ui_form_add import FormAddSongUI
+from app.views.songs.model_table.tables.table_song import SongTable
+from app.views.songs.ui_category import CategoryUI
+from app.views.songs.form.ui_form_add import FormAddSongUI
 from app.views.user_dialog.dialog_error import ErrorDialog
+from app.views.utility.navigation import Navigation
 from app.views.utility.utils import load_ui
 
 
 UI_PATH = "app/ui/songs/song.ui"
 
 class SongUI(QWidget):
-    def __init__(self, session):
+    def __init__(self, session, stack: QWidget):
         super().__init__()
-        self.ui = load_ui(UI_PATH)
 
-        self.form_add_ui = FormAddSongUI(session)
+        """
+        Data controller
+        ===================================
+        """
+        
         self.controller = SongController(session)
 
+
+
+        """
+        Load widget 
+        ===================================
+        """
+        
+        self.stack = stack
+        self.ui = load_ui(UI_PATH)
+        self.stack.addWidget(self.ui)
+
+
+
+        
+        """
+        Navigation
+        ===================================
+        """
+        
+        self.nagivate = Navigation(stack = stack)
+
+
+
+
+        """
+        Subpages 
+        ====================================
+        """
+        
+        self.category_ui = CategoryUI(session=session, stack=self.stack, parent=self)
+        self.form_add_ui = FormAddSongUI(session=session, stack=self.stack, parent=self)
+
+
+
+        """
+        Buttons navigation setup 
+        ================================
+        """
+        
+        # Button to add form page
         self.btn_to_add_form = self.ui.findChild(QPushButton, "btn_to_add_form")
+        self.btn_to_add_form.clicked.connect(lambda: self.nagivate.goto(self.form_add_ui.get_ui()))
+
+        # Button to category page
         self.btn_to_category = self.ui.findChild(QPushButton, "btn_to_category")
+        self.btn_to_category.clicked.connect(lambda: self.nagivate.goto(self.category_ui.get_ui()))
+
+
+
+        """
+        Buttons setup
+        =================================
+        """
+        
 
         self.btn_delete = self.ui.findChild(QPushButton, 'btn_delete')
-        self.btn_update = self.ui.findChild(QPushButton, 'btn_update')
         self.btn_delete.clicked.connect(lambda: self.delete_songs())
+        
+        self.btn_update = self.ui.findChild(QPushButton, 'btn_update')
 
 
+        """
+        Tableview
+        """
+        
 
-        self.table_songs = self.ui.findChild(QTableView, 'table_songs')
-        self.table_model = SongTableModel(self.controller.get_songs())
-        self.table_songs.setModel(self.table_model)
-        self.table_songs.setSelectionBehavior(QAbstractItemView.SelectRows)
-        selection_model = self.table_songs.selectionModel()
-        selection_model.selectionChanged.connect(self.on_selection_changed)
+        self.table = SongTable(parent=self, controller= self.controller)
 
-    def get_ui(self):
+    def get_ui(self) -> QWidget:
         return self.ui
     
-    def on_selection_changed(self, selected, deselected):
-        has_selection = self.table_songs.selectionModel().hasSelection()
-
-        self.btn_delete.setEnabled(has_selection)
-        self.btn_update.setEnabled(has_selection)
     
-    def delete_songs(self):
-        indexes = self.table_songs.selectionModel().selectedRows()
-        print(f"selectedRows : {indexes}")
+    def delete_songs(self) -> None:
+        indexes = self.table.widget.selectionModel().selectedRows()
         confirme = ConfirmDelete(indexes)
         if confirme.execute() :
             for index in indexes :
-                song = self.table_model.data(index, Qt.UserRole)
+                song = self.table.model.data(index, Qt.UserRole)
                 if song :
                     try:
                         self.controller.delete_song(song.id)

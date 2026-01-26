@@ -1,35 +1,20 @@
+from PySide6.QtWidgets import QWidget
+
 class Navigation:
-    def __init__(self, sidebar, content_main):
+    def __init__(self, stack: QWidget, sidebar:QWidget=None):
         self.sidebar = sidebar
-        self.content_main = content_main
+        self.stack = stack
 
 
-    def setup(self):
-        self._sidebar_navigation_setup()
-        self._song_navigation_setup()
+    def goto(self, widget: QWidget) -> None:
+        self.stack.setCurrentWidget(widget)
 
-    def _sidebar_navigation_setup(self):
+    def setup(self) -> None:
         self.sidebar.dashboard_btn.clicked.connect(
-            lambda: self.content_main.setCurrentWidget(self.content_main.dashboard_ui)
+            lambda: self.stack.setCurrentWidget(self.stack.dashboard_ui)
         )
 
         self.sidebar.song_btn.clicked.connect(
-            lambda: self.content_main.setCurrentWidget(self.content_main.song_ui.get_ui())
-        )
-
-    def _song_navigation_setup(self):
-        self.content_main.addWidget(self.content_main.song_ui.form_add_ui.get_ui())
-        self.content_main.addWidget(self.content_main.category_ui.get_ui())
-
-
-        self.content_main.song_ui.btn_to_add_form.clicked.connect(
-            lambda: self.content_main.setCurrentWidget(self.content_main.song_ui.form_add_ui.get_ui())
+            lambda: self.stack.setCurrentWidget(self.stack.song_ui.get_ui())
         )
         
-        self.content_main.song_ui.btn_to_category.clicked.connect(
-            lambda: self.content_main.setCurrentWidget(self.content_main.category_ui.get_ui())
-        )
-
-        self.content_main.category_ui.btn_to_song.clicked.connect(
-            lambda: self.content_main.setCurrentWidget(self.content_main.song_ui.get_ui())
-        )

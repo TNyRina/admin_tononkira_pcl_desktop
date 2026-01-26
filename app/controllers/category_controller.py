@@ -1,8 +1,10 @@
+from app.controllers.controller import Controller
 from app.exceptions.business_exception import ValidationError
 from app.services.category_service import CategoryService
 
-class CategoryController:
+class CategoryController(Controller):
     def __init__(self, session):
+        super().__init__()
         self.service = CategoryService(session)
 
     def add_category(self, category_name: str):

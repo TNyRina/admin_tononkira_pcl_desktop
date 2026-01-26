@@ -11,15 +11,15 @@ class MainWindow(QMainWindow):
         self.showMaximized() 
         
         self.sidebar = SidebarUI()
-        self.content_main = MainContentUI(session)
+        self.stack = MainContentUI(session)
 
-        Navigation(self.sidebar, self.content_main).setup()
+        Navigation(stack=self.stack, sidebar=self.sidebar).setup()
         
         self._display_setup()
 
          
 
-    def _display_setup(self):
+    def _display_setup(self) -> None:
         # Widget central
         central_widget = QWidget()
         self.setCentralWidget(central_widget)
@@ -29,7 +29,7 @@ class MainWindow(QMainWindow):
         central_widget.setLayout(layout)
 
         layout.addWidget(self.sidebar.get_ui())
-        layout.addWidget(self.content_main.get_ui())
+        layout.addWidget(self.stack.get_ui())
 
         layout.setStretch(0, 1)  
         layout.setStretch(1, 4) 

@@ -6,8 +6,8 @@ from app.db import Base
 song_category = Table(
     'song_category',
     Base.metadata,
-    Column('song_id', Integer, ForeignKey('songs.id'), primary_key=True),
-    Column('category_id', Integer, ForeignKey('categories.id'), primary_key=True)
+    Column('song_id', Integer, ForeignKey('songs.id', ondelete="CASCADE"), primary_key=True),
+    Column('category_id', Integer, ForeignKey('categories.id', ondelete="CASCADE"), primary_key=True)
 )
 
 class Category(Base):

@@ -1,5 +1,5 @@
 from PySide6.QtWidgets import QPushButton, QWidget,QMessageBox
-from PySide6.QtCore import Qt
+from PySide6.QtCore import Qt, QModelIndex
 from app.controllers.song_controller import SongController
 from app.exceptions.base_exception import AppError
 from app.views.shared.confirm_delete import ConfirmDelete
@@ -80,7 +80,7 @@ class SongUI(QWidget):
         
 
         self.btn_delete = self.ui.findChild(QPushButton, 'btn_delete')
-        self.btn_delete.clicked.connect(lambda: self.delete_songs())
+        self.btn_delete.clicked.connect(lambda: self._confirm_delete())
         
         self.btn_update = self.ui.findChild(QPushButton, 'btn_update')
 
@@ -95,22 +95,33 @@ class SongUI(QWidget):
     def get_ui(self) -> QWidget:
         return self.ui
     
-    
-    def delete_songs(self) -> None:
+    def _confirm_delete(self):
         indexes = self.table.widget.selectionModel().selectedRows()
         confirme = ConfirmDelete(indexes)
         if confirme.execute() :
-            for index in indexes :
-                song = self.table.model.data(index, Qt.UserRole)
-                if song :
-                    try:
-                        self.controller.delete_song(song.id)
-                        QMessageBox.information(
-                            self,
-                            "Succès",
-                            f"Suppression de {len(indexes)} éléments avec succès."
-                        )
-                    except AppError as e:
-                        error_dialog = ErrorDialog(self, type='critical', exception=e)
-                        error_dialog.show()
+            self._delete_songs(indexes)
+    
+    def _delete_songs(self, indexes: list[QModelIndex]) -> None:
+        for index in indexes :
+            song = self.table.model.data(index, Qt.UserRole)
+            if song :
+                try:
+                    self.controller.delete_song(song.id)
+                    QMessageBox.information(
+                        self,
+                        "Succès",
+                        f"Suppression de {len(indexes)} éléments avec succès."
+                    )
+                    self._reset_default_ui()
+                except AppError as e:
+                    error_dialog = ErrorDialog(self, type='critical', exception=e)
+                    error_dialog.show()
+    
+    def _reset_default_ui(self):
+        self.table.reset()
+        self._reset_buttons()
+
+    def _reset_buttons(self):
+        self.btn_delete.setEnabled(False)
+        self.btn_update.setEnabled(False)
         

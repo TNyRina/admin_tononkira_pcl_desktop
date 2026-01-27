@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QTableView, QWidget
+from PySide6.QtWidgets import QTableView, QWidget, QAbstractItemView
 from abc import abstractmethod
 
 from app.controllers.controller import Controller
@@ -28,7 +28,7 @@ class TableView(QTableView):
         """
         
         self.parent = parent
-        self.widget: QTableView = parent.ui.findChild(QTableView, table_name)
+        self.widget = parent.ui.findChild(QTableView, table_name)
 
 
 
@@ -36,7 +36,7 @@ class TableView(QTableView):
         Create table model
         ==================================
         """
-        
+        self.widget.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.reset()
 
     @abstractmethod

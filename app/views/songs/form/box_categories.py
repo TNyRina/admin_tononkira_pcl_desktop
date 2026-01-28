@@ -29,13 +29,15 @@ class BoxCategories(QWidget):
         categories = category_controller.get_categories()
 
         for cat in categories:
-            self.add_checkbox(flow_layout, cat)
+            self._add_checkbox(flow_layout, cat)
+                
 
-
-    def add_checkbox(self, container, checkbox_value):
+    def _add_checkbox(self, container, checkbox_value) -> None:
         checkbox = QCheckBox(checkbox_value.name)
         checkbox.setProperty("value", checkbox_value.id)
         container.addWidget(checkbox)  
+    
+
     
     def get_selected_boxes(self) -> list:
         layout_categories = self.ui.layout()
@@ -47,3 +49,13 @@ class BoxCategories(QWidget):
                     selected_categories.append(checkbox.property("value"))
 
         return selected_categories
+    
+
+    def fill(self, categories: list[int]) -> None:
+        categorie_ids = [cat.id for cat in categories]
+        layout_categories = self.ui.layout()
+        if layout_categories :
+            for i in range(layout_categories.count()):
+                checkbox = layout_categories.itemAt(i).widget()
+                if checkbox.property("value") in categorie_ids:
+                    checkbox.setChecked(True)

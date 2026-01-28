@@ -1,5 +1,6 @@
 from PySide6.QtWidgets import QWidget, QPushButton, QTextEdit,QLineEdit, QMessageBox
 from app.controllers.song_controller import SongController
+from app.models.song import Song
 from app.views.songs.form.box_categories import BoxCategories
 from app.views.songs.form.box_verses import BoxVerses
 from app.views.user_dialog.dialog_error import ErrorDialog
@@ -7,8 +8,8 @@ from app.views.utility.utils import load_ui
 
 UI_PATH = "app/ui/songs/form_add.ui"
 
-class FormAddSongUI(QWidget):
-    def __init__(self, session, stack: QWidget, parent: QWidget):
+class FormSongUI(QWidget):
+    def __init__(self, session, stack: QWidget, parent: QWidget, song: Song = None):
         super().__init__()
 
         """
@@ -54,12 +55,26 @@ class FormAddSongUI(QWidget):
         self.btn_save = self.ui.findChild(QPushButton, 'btn_save')
         self.btn_save.clicked.connect(lambda: self.save_song())
 
+        #Button to cancel submit
+
+        #Button to exit form
+
+
+        
+
+        """
+        Fill out the form if song exists
+        ==================================================================
+        """
+        if song :
+            self.song = song
+            self._fill_form()
+
 
 
     def get_ui(self) -> QWidget:
         return self.ui
     
-
 
     def save_song(self):
         title = self.input_title.text()
@@ -71,21 +86,39 @@ class FormAddSongUI(QWidget):
         selected_categories = self.categories.get_selected_boxes()
 
         try:
-            self.controller.add_song(
-                title=title,
-                release="",
-                author=author,
-                composer=composer,
-                description=description,
-                refrain=refrain,
-                verse=verses,
-                categories=selected_categories
-            )
-            QMessageBox.information(
-                    self,
-                    "Succès",
-                    f"Lyric '{title}' a été ajoutée avec succès."
+            if self.song : 
+                self.controller.update_song(
+                    id=self.song.id,
+                    title=title,
+                    release="",
+                    author=author,
+                    composer=composer,
+                    description=description,
+                    refrain=refrain,
+                    verse=verses,
+                    categories=selected_categories
                 )
+                QMessageBox.information(
+                        self,
+                        "Succès",
+                        f"Lyric '{title}' a été modifiée avec succès."
+                    )
+            else :
+                self.controller.add_song(
+                    title=title,
+                    release="",
+                    author=author,
+                    composer=composer,
+                    description=description,
+                    refrain=refrain,
+                    verse=verses,
+                    categories=selected_categories
+                )
+                QMessageBox.information(
+                        self,
+                        "Succès",
+                        f"Lyric '{title}' a été ajoutée avec succès."
+                    )
             
             self.parent.nagivate.goto(self.parent.get_ui())
             self.parent.table.reset()
@@ -95,3 +128,13 @@ class FormAddSongUI(QWidget):
 
 
    
+    def _fill_form(self):
+        self.input_title.setText(self.song.title)
+        self.input_author.setText(self.song.author)
+        self.input_composer.setText(self.song.composer)
+        
+        self.input_description.setPlainText(self.song.description)
+        self.input_refrain.setPlainText(self.song.refrain)
+
+        self.verses.fill(self.song.verse)
+        self.categories.fill(self.song.categories)

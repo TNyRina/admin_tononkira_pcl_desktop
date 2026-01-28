@@ -20,6 +20,22 @@ class SongController:
             categories=categories)
         except ValidationError :
             raise 
+
+    def update_song(self, id, title, categories, verse, author=None, composer=None, description=None, refrain=None, release=None):
+        verse_string = ":".join(verse)
+
+        try:
+            self.service.update_song(id=id,
+            title=title, 
+            release=release, 
+            author=author, 
+            composer=composer, 
+            description=description, 
+            verse=verse_string, 
+            refrain=refrain, 
+            categories=categories)
+        except ValidationError :
+            raise 
     
     def get_songs(self):
         try: 
@@ -32,3 +48,4 @@ class SongController:
             self.service.delete_song(id)
         except Exception:
             raise
+    

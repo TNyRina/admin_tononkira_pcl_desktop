@@ -167,7 +167,7 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_4">
          <item>
-          <widget class="QPushButton" name="pushButton_2">
+          <widget class="QPushButton" name="btn_cancel">
            <property name="text">
             <string>Annuler</string>
            </property>

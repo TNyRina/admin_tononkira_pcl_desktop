@@ -19,8 +19,3 @@ def enable_foreign_keys(dbapi_connection, connection_record):
         cursor = dbapi_connection.cursor()
         cursor.execute("PRAGMA foreign_keys=ON")
         cursor.close()
-
-
-from app.models.category import song_category
-
-song_category.create(bind=engine, checkfirst=True)

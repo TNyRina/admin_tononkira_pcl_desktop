@@ -29,26 +29,7 @@ class BoxVerses(QWidget):
 
 
 
-
-    def get_verses(self) -> list[str]:
-        layout_verses = self.ui.layout()
-        verses = []
-
-        if not layout_verses:
-            return verses
-
-        for i in range(layout_verses.count()):
-            item = layout_verses.itemAt(i)
-            verse_widget = item.widget().layout()
-            if verse_widget:
-                text_edit = verse_widget.itemAt(1).widget()
-                verses.append(text_edit.toPlainText())
-
-
-        return verses
-
-
-    def _push_verse(self) -> None:
+    def _push_verse(self, value: str = None) -> None:
         layout_content = self.ui.layout()
 
         if layout_content is None:
@@ -62,6 +43,9 @@ class BoxVerses(QWidget):
         label = QLabel(f"Verse {index}")
         text = QTextEdit()
         text.setObjectName(f"text_verse_{index}")
+
+        if value :
+            text.setPlainText(value)
 
         verse_layout.addWidget(label)
         verse_layout.addWidget(text)
@@ -79,3 +63,25 @@ class BoxVerses(QWidget):
             item.widget().deleteLater()
 
     
+
+    def fill(self, verses: str):
+        for verse in verses.split(':') :
+            self._push_verse(verse)
+
+
+    def get_verses(self) -> list[str]:
+        layout_verses = self.ui.layout()
+        verses = []
+
+        if not layout_verses:
+            return verses
+
+        for i in range(layout_verses.count()):
+            item = layout_verses.itemAt(i)
+            verse_widget = item.widget().layout()
+            if verse_widget:
+                text_edit = verse_widget.itemAt(1).widget()
+                verses.append(text_edit.toPlainText())
+
+
+        return verses

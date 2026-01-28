@@ -5,7 +5,7 @@ from app.exceptions.base_exception import AppError
 from app.views.shared.confirm_delete import ConfirmDelete
 from app.views.songs.model_table.tables.table_song import SongTable
 from app.views.songs.ui_category import CategoryUI
-from app.views.songs.form.ui_form_add import FormAddSongUI
+from app.views.songs.form.ui_form import FormSongUI
 from app.views.user_dialog.dialog_error import ErrorDialog
 from app.views.utility.navigation import Navigation
 from app.views.utility.utils import load_ui
@@ -18,12 +18,12 @@ class SongUI(QWidget):
         super().__init__()
 
         """
-        Data controller
+        Data controller / Session
         ===================================
         """
         
         self.controller = SongController(session)
-
+        self.session = session
 
 
         """
@@ -54,7 +54,7 @@ class SongUI(QWidget):
         """
         
         self.category_ui = CategoryUI(session=session, stack=self.stack, parent=self)
-        self.form_add_ui = FormAddSongUI(session=session, stack=self.stack, parent=self)
+        self.form_add_ui = FormSongUI(session=session, stack=self.stack, parent=self)
 
 
 
@@ -83,6 +83,7 @@ class SongUI(QWidget):
         self.btn_delete.clicked.connect(lambda: self._confirm_delete())
         
         self.btn_update = self.ui.findChild(QPushButton, 'btn_update')
+        self.btn_update.clicked.connect(lambda: self._update_song())
 
 
         """
@@ -94,6 +95,14 @@ class SongUI(QWidget):
 
     def get_ui(self) -> QWidget:
         return self.ui
+    
+
+    def _update_song(self) :
+        index = self.table.widget.currentIndex()
+        song = self.table.model.data(index, Qt.UserRole)
+        form_update_ui = FormSongUI(session=self.session, stack=self.stack, parent=self, song=song)
+        self.nagivate.goto(form_update_ui.get_ui())
+
     
     def _confirm_delete(self):
         indexes = self.table.widget.selectionModel().selectedRows()
@@ -116,6 +125,9 @@ class SongUI(QWidget):
                 except AppError as e:
                     error_dialog = ErrorDialog(self, type='critical', exception=e)
                     error_dialog.show()
+    
+
+
     
     def _reset_default_ui(self):
         self.table.reset()

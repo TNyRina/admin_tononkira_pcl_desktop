@@ -56,10 +56,14 @@ class FormSongUI(QWidget):
         self.btn_save.clicked.connect(lambda: self.save_song())
 
         #Button to cancel submit
+        self.btn_to_cancel_submit = self.ui.findChild(QPushButton, 'btn_cancel')
+        self.btn_to_cancel_submit.clicked.connect(lambda: self._cancel_submit())
 
         #Button to exit form
-
-
+        self.btn_to_exit_form = self.ui.findChild(QPushButton, 'btn_to_list_song')
+        self.btn_to_exit_form.clicked.connect(lambda: self.parent.navigate.goto(self.parent.get_ui())
+)
+        
         
 
         """
@@ -74,6 +78,12 @@ class FormSongUI(QWidget):
 
     def get_ui(self) -> QWidget:
         return self.ui
+
+    def _cancel_submit(self):
+        self._reset_text_edits()
+        self._reset_line_edits()
+        self.verses.reset()
+        self.categories.reset()
     
 
     def save_song(self):
@@ -120,7 +130,7 @@ class FormSongUI(QWidget):
                         f"Lyric '{title}' a été ajoutée avec succès."
                     )
             
-            self.parent.nagivate.goto(self.parent.get_ui())
+            self.parent.navigate.goto(self.parent.get_ui())
             self.parent.table.reset()
         except Exception as e:
             error_dialog = ErrorDialog(self, type='warning', exception=e)
@@ -138,3 +148,12 @@ class FormSongUI(QWidget):
 
         self.verses.fill(self.song.verse)
         self.categories.fill(self.song.categories)
+    
+    def _reset_line_edits(self):
+        self.input_title.setText('')
+        self.input_author.setText('')
+        self.input_composer.setText('')
+    
+    def _reset_text_edits(self):
+        self.input_description.setPlainText('')
+        self.input_refrain.setPlainText('')

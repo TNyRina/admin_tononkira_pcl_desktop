@@ -85,3 +85,13 @@ class BoxVerses(QWidget):
 
 
         return verses
+
+    def reset(self) -> None:
+        layout_verses = self.ui.layout()
+
+        while layout_verses.count():
+            item = layout_verses.takeAt(0)
+
+            widget = item.widget()
+            if widget is not None:
+                widget.deleteLater()

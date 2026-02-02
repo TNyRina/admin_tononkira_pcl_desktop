@@ -13,13 +13,24 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_5">
+  <layout class="QVBoxLayout" name="verticalLayout_3">
    <item>
-    <widget class="QLabel" name="label">
-     <property name="text">
-      <string>Ajouter un nouveau lyric</string>
-     </property>
-    </widget>
+    <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="1,4">
+     <item>
+      <widget class="QPushButton" name="btn_to_list_song">
+       <property name="text">
+        <string>Retour</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>Ajouter un nouveau lyric</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
    <item>
     <widget class="QScrollArea" name="scrollArea">
@@ -32,7 +43,7 @@
         <x>0</x>
         <y>0</y>
         <width>467</width>
-        <height>641</height>
+        <height>631</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">

@@ -59,3 +59,11 @@ class BoxCategories(QWidget):
                 checkbox = layout_categories.itemAt(i).widget()
                 if checkbox.property("value") in categorie_ids:
                     checkbox.setChecked(True)
+    
+    def reset(self) -> None:
+        layout_categories = self.ui.layout()
+        if layout_categories:
+            for i in range(layout_categories.count()):
+                checkbox = layout_categories.itemAt(i).widget()
+                if checkbox.isChecked():
+                    checkbox.setChecked(False)

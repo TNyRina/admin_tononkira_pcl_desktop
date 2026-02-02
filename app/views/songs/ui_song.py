@@ -43,7 +43,7 @@ class SongUI(QWidget):
         ===================================
         """
         
-        self.nagivate = Navigation(stack = stack)
+        self.navigate = Navigation(stack = stack)
 
 
 
@@ -65,11 +65,11 @@ class SongUI(QWidget):
         
         # Button to add form page
         self.btn_to_add_form = self.ui.findChild(QPushButton, "btn_to_add_form")
-        self.btn_to_add_form.clicked.connect(lambda: self.nagivate.goto(self.form_add_ui.get_ui()))
+        self.btn_to_add_form.clicked.connect(lambda: self.navigate.goto(self.form_add_ui.get_ui()))
 
         # Button to category page
         self.btn_to_category = self.ui.findChild(QPushButton, "btn_to_category")
-        self.btn_to_category.clicked.connect(lambda: self.nagivate.goto(self.category_ui.get_ui()))
+        self.btn_to_category.clicked.connect(lambda: self.navigate.goto(self.category_ui.get_ui()))
 
 
 
@@ -101,7 +101,7 @@ class SongUI(QWidget):
         index = self.table.widget.currentIndex()
         song = self.table.model.data(index, Qt.UserRole)
         form_update_ui = FormSongUI(session=self.session, stack=self.stack, parent=self, song=song)
-        self.nagivate.goto(form_update_ui.get_ui())
+        self.navigate.goto(form_update_ui.get_ui())
 
     
     def _confirm_delete(self):

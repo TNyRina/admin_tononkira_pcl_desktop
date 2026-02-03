@@ -1,3 +1,4 @@
+import json
 from app.exceptions.business_exception import ValidationError
 from app.exceptions.technical_exception import DatabaseError
 from app.models.song import Song
@@ -26,8 +27,8 @@ class SongService:
             for cat_id in categories:
                 cat_repo = CategoryRepository(self.session)
                 category = cat_repo.get_category_by_id(cat_id)
-
-                new_song.categories.append(category)
+                if category :
+                    new_song.categories.append(category)
 
             return SongRepository(self.session).add_song(new_song)
         except DatabaseError as e:
@@ -62,3 +63,24 @@ class SongService:
             SongRepository(self.session).delete_song(id)
         except DatabaseError as e:
             raise ValidationError("Failed to delete song", code="DELETE_FAILED") from e
+        
+    
+    def load_json(self, json_path: str):
+        try:
+            with open(json_path, "r", encoding="utf-8") as f:
+                songs = json.load(f)
+                for song in songs:
+                    self.create_song(
+                        title=song['title'],
+                        release=song['release'],
+                        author=song['author'],
+                        composer=song['composer'],
+                        description=song['description'],
+                        verse=":".join(song['verse']),
+                        refrain=song['refrain'],
+                        categories=song['categories']
+                    )
+        except FileNotFoundError:
+            print("Fichier introuvable")
+        except json.JSONDecodeError:
+            print("JSON invalide")

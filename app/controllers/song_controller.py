@@ -1,3 +1,5 @@
+import os
+
 from app.exceptions.business_exception import ValidationError
 from app.services.song_service import SongService
 
@@ -48,4 +50,13 @@ class SongController:
             self.service.delete_song(id)
         except Exception:
             raise
+
+    
+    def load_file(self, path: str):
+        extension = os.path.splitext(path)[1].lower()
+        
+        if extension == ".json":
+            self.service.load_json(path)
+        elif extension in (".xlsx", ".xls"):
+            print("Fichier Excel")
     

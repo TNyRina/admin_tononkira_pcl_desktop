@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QPushButton, QWidget,QMessageBox
+from PySide6.QtWidgets import QPushButton, QWidget,QMessageBox, QFileDialog
 from PySide6.QtCore import Qt, QModelIndex
 from app.controllers.song_controller import SongController
 from app.exceptions.base_exception import AppError
@@ -85,6 +85,9 @@ class SongUI(QWidget):
         self.btn_update = self.ui.findChild(QPushButton, 'btn_update')
         self.btn_update.clicked.connect(lambda: self._update_song())
 
+        self.btn_to_upload = self.ui.findChild(QPushButton, 'btn_to_upload')
+        self.btn_to_upload.clicked.connect(lambda: self._open_file_dialog())
+
 
         """
         Tableview
@@ -96,6 +99,18 @@ class SongUI(QWidget):
     def get_ui(self) -> QWidget:
         return self.ui
     
+    def _open_file_dialog(self):
+        file_path, _ = QFileDialog.getOpenFileName(
+            self,
+            "Choisir un fichier",
+            "",
+            "JSON (*.json);;Excel (*.xlsx *.xls)"
+        )
+        if file_path:
+            self.controller.load_file(file_path)
+            self._reset_default_ui()
+
+
 
     def _update_song(self) :
         index = self.table.widget.currentIndex()

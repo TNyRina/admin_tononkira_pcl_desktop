@@ -17,7 +17,7 @@ class SongRepository:
 
 
 
-    def get_all_songs(self):
+    def get_all_songs(self) -> list[Song]:
         try:
             songs = self.session.query(Song).all()
             SongRepository.logger.info(f"Fetched {len(songs)} songs")
@@ -77,7 +77,7 @@ class SongRepository:
 
 
 
-    def delete_song(self, song_id: int):
+    def delete_song(self, song_id: int) -> None:
         try:
             song = self.session.get(Song, song_id)
             if not song:
@@ -100,7 +100,7 @@ class SongRepository:
 
 
 
-    def get_song_by_id(self, song_id):
+    def get_song_by_id(self, song_id: int) -> Song:
         SongRepository.logger.debug("Fetching song by id", extra={"song-id": song_id})
 
         return self.session.get(Song, song_id)
